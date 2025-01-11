@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chambres de la commune</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+</head>
+<body>
+    <h1>Chambres de {{ commune.nom }}</h1>
+
+    <ul>
+        {% for chambre in chambres %}
+        <li>
+            <strong>{{ chambre.type_chambre }}</strong> - {{ chambre.description }} - {{ chambre.prix }}€
+            {% if chambre.image %}
+                <p>URL de l'image : {{ chambre.image.url }}</p>
+                <img src="{{ chambre.image.url }}" alt="Image de la chambre" style="max-width: 100%; height: auto;">
+            {% else %}
+                <p>Aucune image disponible</p>
+            {% endif %}
+            {% if chambre.video %}
+                <p>URL de la vidéo : {{ chambre.video.url }}</p>
+                <video controls style="max-width: 100%; height: auto;">
+                    <source src="{{ chambre.video.url }}" type="video/mp4">
+                    Votre navigateur ne supporte pas la balise vidéo.
+                </video>
+            {% else %}
+                <p>Aucune vidéo disponible</p>
+            {% endif %}
+        </li>
+    {% endfor %}
+    
+    </ul>
+</body>
+</html>

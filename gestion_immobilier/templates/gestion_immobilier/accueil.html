@@ -1,0 +1,159 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accueil - Site Immobilier</title>
+    <link rel="stylesheet" href="{% static 'gestion_immobilier/styles.css' %}">
+    <style>
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #007bff;
+            padding: 10px 20px;
+        }
+        .navbar .logo a {
+            color: #fff;
+            font-size: 1.5em;
+            text-decoration: none;
+        }
+        .navbar .nav-links {
+            list-style: none;
+            display: flex;
+            margin: 0;
+            padding: 0;
+        }
+        .navbar .nav-links li {
+            margin: 0 15px;
+        }
+        .navbar .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1em;
+            transition: color 0.3s;
+        }
+        .navbar .nav-links a:hover {
+            color: #ddd;
+        }
+        .navbar .cta-buttons a {
+            margin-left: 15px;
+            padding: 10px 20px;
+            color: #007bff;
+            background-color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .navbar .cta-buttons a:hover {
+            background-color: #ddd;
+        }
+        .image-droite {
+            width: 50%;
+            height: auto;
+        }
+        .conteneur {
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+            width: 100%;
+        }
+        .texte-gauche {
+            width: 50%;
+            padding: 20px;
+        }
+        .cta-button {
+            display: inline-block;
+            padding: 15px 25px;
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+            color: #ffffff;
+            background-color: #007bff; /* Couleur du bouton */
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            margin: 10px;
+            transition: background-color 0.3s ease;
+        }
+        .cta-button:hover {
+            background-color: #0056b3; /* Couleur au survol */
+        }
+        .title-container {
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+            box-sizing: border-box;
+        }
+        .scrolling-wrapper {
+            display: flex;
+            white-space: nowrap;
+            animation: scrolling 15s linear infinite;
+        }
+        .scrolling-title {
+            font-size: 3em;
+            color: #333;
+            display: inline-block;
+            padding-right: 100%; /* Ajoute de l'espace après le texte pour un défilement fluide */
+        }
+        @keyframes scrolling {
+            0% {
+                transform: translateX(100%);
+            }
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <a href="index.html">Logo</a>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">Accueil</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <div class="cta-buttons">
+            <a href="login.html" class="btn-login">Se connecter</a>
+            <a href="signup.html" class="btn-signup">S'inscrire</a>
+        </div>
+    </nav>
+    <div class="title-container">
+        <div class="scrolling-wrapper">
+            <h1 class="scrolling-title">Bienvenue sur le site immobilier d'ABIDJAN</h1>
+        </div>
+    </div>
+    <div class="conteneur">
+        <div class="texte-gauche">
+            <h2>Nos chambres disponibles :</h2>
+            <ul>
+                {% for chambre in chambres %}
+                    <li>
+                        <a href="{% url 'commune_chambres' commune_id=chambre.commune.id %}">
+                            {{ chambre.type_chambre.nom }} à {{ chambre.commune.nom }} - 
+                            {{ chambre.nombre_de_chambres }} chambres, 
+                            {{ chambre.nombre_de_salons }} salons
+                        </a>
+                    </li>
+                {% empty %}
+                    <li>Aucune chambre disponible actuellement.</li>
+                {% endfor %}
+            </ul>
+
+            {% if user.is_authenticated %}
+            <a href="{% url 'login' %}" class="cta-button">Se connecter pour ajouter une chambre</a>
+            {% else %}
+                <a href="{% url 'login' %}" class="cta-button">Se connecter pour ajouter une chambre</a>
+            {% endif %}
+
+            <!-- Lien vers la page d'inscription -->
+            <a href="{% url 'ajouter_utilisateur' %}" class="cta-button">Pas encore de compte ? Inscrivez-vous ici.</a>
+        </div>
+        <img src="{% static 'images/ZE.jpg' %}" alt="Image d'accueil" class="image-droite">
+    </div>
+</body>
+</html>

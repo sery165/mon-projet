@@ -1,0 +1,118 @@
+/* Fichier styles.css */
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+header {
+    margin-bottom: 20px;
+}
+
+.title-container {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    box-sizing: border-box;
+}
+
+.scrolling-wrapper {
+    display: flex;
+    white-space: nowrap;
+    animation: scrolling 15s linear infinite;
+}
+
+.scrolling-title {
+    font-size: 2.5em;
+    color: #333;
+    display: inline-block;
+    padding-right: 100%;
+}
+
+@keyframes scrolling {
+    0% {
+        transform: translateX(100%);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+.conteneur {
+    display: grid;
+    grid-template-columns: 1fr;
+    align-items: flex-start;
+    width: 100%;
+    padding: 20px;
+}
+
+.texte-gauche {
+    width: 100%;
+    padding: 20px;
+}
+
+.image-droite {
+    width: 100%;
+    height: auto;
+    margin: 20px 0;
+}
+
+h2 {
+    color: #007bff;
+}
+
+.cta-button {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 1em;
+    font-weight: bold;
+    text-align: center;
+    color: #ffffff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    margin: 10px 0;
+    transition: background-color 0.3s ease;
+}
+
+.cta-button:hover {
+    background-color: #0056b3;
+}
+
+/* Media Queries pour Responsive Design */
+
+@media (min-width: 600px) {
+    .conteneur {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .texte-gauche, .image-droite {
+        width: 100%;
+    }
+}
+
+@media (min-width: 768px) {
+    .scrolling-title {
+        font-size: 3em;
+    }
+
+    .cta-button {
+        font-size: 1.2em;
+        padding: 15px 25px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .scrolling-title {
+        font-size: 3.5em;
+    }
+
+    .cta-button {
+        font-size: 1.5em;
+        padding: 20px 30px;
+    }
+}

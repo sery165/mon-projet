@@ -1,0 +1,37 @@
+{% load static %} <!-- Charger les fichiers statiques -->
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connexion</title>
+    <!-- Lien vers le fichier CSS statique -->
+    <link rel="stylesheet" href="{% static 'gestion_immobilier/styles.css' %}">
+</head>
+<body>
+    <h1>Connexion à votre compte</h1>
+
+    <!-- Afficher les erreurs de connexion si elles existent -->
+    {% if form.errors %}
+      <div class="alert alert-danger">
+        {% for field in form %}
+          {% for error in field.errors %}
+            <p>{{ error }}</p>
+          {% endfor %}
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    <!-- Formulaire de connexion -->
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Se connecter</button>
+    </form>
+
+    <p>
+        Pas encore de compte ? <a href="{% url 'ajouter_utilisateur' %}">Inscrivez-vous ici</a>.
+    </p>
+</body>
+</html>

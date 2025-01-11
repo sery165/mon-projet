@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Détails de la chambre</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+</head>
+<body>
+    <h1>{{ chambre.type_chambre }} à {{ chambre.commune.nom }}</h1>
+    <p>{{ chambre.description }}</p>
+    <p>Prix: {{ chambre.prix }} CFA</p>
+    <p>Superficie: {{ chambre.superficie }} m²</p>
+    <p>Nombre de chambres: {{ chambre.nombre_de_chambres }}</p>
+    <p>Nombre de salons: {{ chambre.nombre_de_salons }}</p>
+    <p>Adresse: {{ chambre.adresse }}</p>
+
+    {% if chambre.image %}
+        <img src="{{ chambre.image.url }}" alt="Image de la chambre" />
+    {% endif %}
+
+    {% if chambre.video %}
+        <h2>Vidéo de la chambre</h2>
+        <video width="320" height="240" controls>
+            <source src="{{ chambre.video.url }}" type="video/mp4">
+            Votre navigateur ne prend pas en charge la lecture vidéo.
+        </video>
+    {% endif %}
+</body>
+</html>

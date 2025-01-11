@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajouter une chambre</title>
+    
+    <!-- Charger les fichiers statiques -->
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+</head>
+<body>
+    <h1>Ajouter une nouvelle chambre</h1>
+
+    <!-- Formulaire principal pour la chambre -->
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <!-- Formulaire pour la chambre -->
+        <div>
+            <h2>Informations sur la chambre</h2>
+            {{ chambre_form.as_p }}
+        </div>
+
+        <!-- Formulaire pour les images de la chambre -->
+        <div>
+            <h3>Ajouter des images pour cette chambre</h3>
+            {{ image_form.as_p }}
+            <input type="file" name="image" multiple>
+        </div>
+
+        <!-- Bouton de soumission -->
+        <div>
+            <button type="submit">Ajouter</button>
+        </div>
+    </form>
+    
+</body>
+</html>
