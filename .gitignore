@@ -1,0 +1,13 @@
+# Ignorer les fichiers Python compilés
+*.pyc
+__pycache__/
+
+# Ignorer les répertoires de médias (si vous ne voulez pas suivre les fichiers dans 'media/')
+media/
+
+# Ignorer les fichiers de configuration de l'IDE (si vous en avez)
+.idea/
+.vscode/
+
+# Ignorer les fichiers de cache de Django
+*.log
