@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ajouter une chambre</title>
-    
     <!-- Charger les fichiers statiques -->
     {% load static %}
     <link rel="stylesheet" href="{% static 'styles.css' %}">
@@ -26,7 +25,7 @@
         <div>
             <h3>Ajouter des images pour cette chambre</h3>
             {{ image_form.as_p }}
-            <input type="file" name="image" multiple>
+            <input type="file" name="image" multiple>  <!-- Permet de télécharger plusieurs images -->
         </div>
 
         <!-- Bouton de soumission -->

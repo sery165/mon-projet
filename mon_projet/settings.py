@@ -59,13 +59,14 @@ WSGI_APPLICATION = 'mon_projet.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': env('DB_NAME', default='immobilier'),
-        'USER': env('DB_USER', default='root'),
-        'PASSWORD': env('DB_PASSWORD'),
-        'HOST': env('DB_HOST', default='localhost'),
-        'PORT': env('DB_PORT', default='3306'),
+        'NAME': 'immobilier',  # Nom de votre base de données
+        'USER': 'root',  # Utilisateur de la base de données, modifiez si nécessaire
+        'PASSWORD': 'MOREL1234',  # Mot de passe de votre utilisateur MySQL
+        'HOST': 'localhost',  # L'hôte de la base de données (en local, cela reste 'localhost')
+        'PORT': '3306',  # Port utilisé par MySQL
     }
 }
+
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
@@ -109,7 +110,7 @@ AUTHENTICATION_BACKENDS = (
 )
 
 # Redirige l'utilisateur vers la page d'accueil ou une autre page après une connexion réussie
-LOGIN_REDIRECT_URL = '/'  # Par exemple, la page d'accueil après connexion
+LOGIN_REDIRECT_URL = '/ajouter_chambre/'  # Par exemple, la page d'accueil après connexion
 
 # Si un utilisateur non connecté tente d'accéder à une page protégée, redirige vers la page de login
 LOGIN_URL = '/accounts/login/'  # URL de la page de connexion

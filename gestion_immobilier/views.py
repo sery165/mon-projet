@@ -30,7 +30,7 @@ def ajouter_chambre(request):
     if request.method == 'POST':
         # Créer les instances des formulaires
         chambre_form = ChambreForm(request.POST, request.FILES)
-        image_form = ImageChambreForm(request.POST, request.FILES)
+        image_forms = [ImageChambreForm(request.POST, request.FILES, prefix=str(i)) for i in range(10)]
 
         if chambre_form.is_valid() and image_form.is_valid():
             # Sauver la chambre
@@ -38,13 +38,14 @@ def ajouter_chambre(request):
             chambre.utilisateur = request.user  # Utilisateur connecté
             chambre.save()
 
-            # Sauver l'image associée à la chambre
-            image = image_form.save(commit=False)
-            image.chambre = chambre
-            image.save()
+            # Sauver les images associées à la chambre
+            images = request.FILES.getlist('image')  # Récupérer toutes les images envoyées
+            for img in images:
+                image_instance = ImageChambre(chambre=chambre, image=img)
+                image_instance.save()
 
-            # Redirection après l'ajout
-            return redirect('accueil')  # Redirige vers la page d'accueil ou la page des chambres
+            # Rediriger après l'ajout
+            return redirect('accueil')
     else:
         chambre_form = ChambreForm()
         image_form = ImageChambreForm()
@@ -53,6 +54,7 @@ def ajouter_chambre(request):
         'chambre_form': chambre_form,
         'image_form': image_form,
     })
+
 
 # Inscription d'un nouvel utilisateur
 def ajouter_utilisateur(request):
@@ -78,10 +80,10 @@ def login_view(request):
         if user is not None:
             login(request, user)
             messages.success(request, 'Connexion réussie !')
-            return redirect('home')  # Redirection vers la page d'accueil
+            return redirect('ajouter_chambre')  # Redirection vers la page d'accueil
         else:
             messages.error(request, 'Nom d’utilisateur ou mot de passe incorrect.')
-            return redirect('login')  # Redirection vers la page de connexion en cas d'erreur
+            return redirect('ajouter_chambre')  # Redirection vers la page de connexion en cas d'erreur
     
     return render(request, 'registration/login.html')
 

@@ -16,15 +16,8 @@ class TypeChambre(models.Model):
     def __str__(self):
         return self.nom
 
-# Modèle pour gérer les images de la chambre
-class ImageChambre(models.Model):
-    chambre = models.ForeignKey('Chambre', related_name='images', on_delete=models.CASCADE)
-    image = models.ImageField(upload_to='chambres/%Y/%m/%d/')
-    
-    def __str__(self):
-        return f"Image pour {self.chambre}"
+from django.db import models
 
-# Modèle pour les chambres
 class Chambre(models.Model):
     type_chambre = models.ForeignKey(TypeChambre, on_delete=models.CASCADE)
     commune = models.ForeignKey(Commune, on_delete=models.CASCADE)
@@ -36,13 +29,19 @@ class Chambre(models.Model):
     adresse = models.CharField(max_length=255)
     video = models.FileField(upload_to='videos/%Y/%m/%d/', blank=True, null=True)
     utilisateur = models.ForeignKey(User, on_delete=models.CASCADE)
-    
-    # Nouveaux champs
     contact = models.CharField(max_length=15, default='0000000000')
     situation_geographique = models.CharField(max_length=255, default='Non spécifiée')
 
     def __str__(self):
-        return f"{self.type_chambre.nom} à {self.commune.nom} ({self.nombre_de_chambres} chambres, {self.nombre_de_salons} salons)"
+        return f'Chambre {self.id}'
+
+class ImageChambre(models.Model):
+    chambre = models.ForeignKey(Chambre, related_name='images', on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='chambres/%Y/%m/%d/')
+
+    def __str__(self):
+        return f'Image {self.id} de Chambre {self.chambre.id}'
+    
 
 # Modèle Utilisateur personnalisé
 class Utilisateur(AbstractUser):

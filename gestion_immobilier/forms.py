@@ -12,6 +12,14 @@ class ChambreForm(forms.ModelForm):
         widgets = {
             'video': forms.ClearableFileInput(),
         }
+# Formulaire pour l'image de la chambre
+class ImageChambreForm(forms.ModelForm):
+    class Meta:
+        model = ImageChambre
+        fields = ['image']
+        widgets = {
+            'image': forms.ClearableFileInput(),
+        }
 
 # Formulaire personnalisé pour l'utilisateur
 class UserCreationFormCustom(UserCreationForm):
@@ -24,11 +32,4 @@ class UserCreationFormCustom(UserCreationForm):
             'date_naissance': forms.DateInput(attrs={'type': 'date'}),
         }
 
-# Formulaire pour l'image de la chambre
-class ImageChambreForm(forms.ModelForm):
-    class Meta:
-        model = ImageChambre
-        fields = ['image']
-        widgets = {
-            'image': forms.ClearableFileInput(),
-        }
+
